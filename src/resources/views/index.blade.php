@@ -6,8 +6,29 @@
 
 @section('content')
 
-<div class="item__content">
-  <img src="{{ asset('images/index.png') }}" alt="coachtech flea-market" />
-  <p>商品名</p>
+<div class="index__header">
+  <div class="index__header-li"><p>おすすめ</p></div>
+  <div class="index__header-li"><p>マイリスト</p></div>
+</div>
+
+<div class="index__items">
+  @foreach ($items->chunk(4) as $chunk)
+    <div class="item__content">
+      @foreach ($chunk as $item)
+        <div class="item-card">
+          <div class="index__item-img">
+            <a href="{{ route('items.show', $item->id) }}">
+              <img src="{{ $item->img_url }}" alt="{{ $item->name }}" class="item-img">
+            </a>
+          </div>
+          <div class="index__item-name">
+            <a href="{{ route('items.show', $item->id) }}" class="item-name__a">
+              <h2 class="update-form__item-name">{{ $item->name }}</h2>
+            </a>
+        </div>
+        </div>
+      @endforeach
+    </div>
+  @endforeach
 </div>
 @endsection

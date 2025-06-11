@@ -1,0 +1,90 @@
+.item-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 50px;
+}
+
+.item-img {
+    width: 50%;
+}
+
+.img-fluid {
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.item-detail {
+    width: 50%;
+}
+
+.item-name {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.item-price {
+    font-size: 25px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.price-tax {
+    font-size: 18px;
+}
+
+.item-text-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.item-text {
+    margin-bottom: 20px;
+}
+
+.purchase {
+    width: 100%;
+    padding: 20px;
+}
+
+.purchase-btn,
+.comment-btn {
+    font-size: 16px;
+    text-decoration: none;
+    padding: 10px 150px;
+    margin: 20px 0;
+    background-color: #ff5454;
+    color: #fff;
+    border: none;
+}
+
+.frex {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-icon {
+    background-color: #d9d9d9;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+}
+
+.user-name {
+    padding: 5px;
+}
+
+.user-text {
+    background-color: #d9d9d9;
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.form-comment {
+    width: 80%;
+    height: 300px;
+}
+
+.comment-btn {}
