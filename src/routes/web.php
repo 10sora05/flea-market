@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +19,25 @@ Route::get('/', [ItemController::class, 'index'])->name('index');
 
 Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show');
 
-Route::get('/purchase/{id}', [ItemController::class, 'purchase'])->name('items.purchase');
+Route::get('/api/search', [ItemController::class, 'search'])->name('items.search');
 
-Route::get('/login', function () {
-  return view('login');
-})->name('login');
+// 商品購入ページ（ログイン必須）
+Route::get('/items/{id}/purchase', [ItemController::class, 'purchase'])
+    ->middleware('auth')->name('items.purchase');
 
-Route::get('/register', function () {
-  return view('register');
-})->name('register');
+// いいね機能（ログイン必須）
+Route::post('/items/{item}/like', [LikeController::class, 'like'])->middleware('auth')->name('items.like');
+Route::delete('/items/{item}/unlike', [LikeController::class, 'unlike'])->middleware('auth')->name('items.unlike');
+
+// ダッシュボード（認証後）
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+// 認証ルート
+require __DIR__.'/auth.php';
+
+
 
 Route::get('/mypage', function () {
   return view('mypage');
