@@ -13,6 +13,18 @@
         <h2 class="item-name">{{ $item->name }}</h2>
         <p class="item-text">ブランド名</p>
         <h3 class="item-price">￥{{ number_format($item->price) }}<span class="price-tax">(税込)</span></h3>
+
+        <div class="like-section">
+            <button id="likeButton" class="like-btn">
+                @if($item->isLikedBy(Auth::user()))
+                ❤️ いいね済み
+                @else
+                🤍 いいね
+                @endif
+            </button>
+            <p>{{ $item->likes->count() }} 件のいいね</p>
+        </div>
+
         <div class="purchase">
             <a href="{{ route('items.purchase', $item->id) }}" class="purchase-btn">購入手続きへ</a>
         </diV>
@@ -36,4 +48,32 @@
         </form>
     </div>
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const likeButton = document.getElementById('likeButton');
+    const itemId = {{ $item->id }};
+    let liked = @json($item->isLikedBy(Auth::user()));
+
+    likeButton.addEventListener('click', () => {
+        const url = `/items/${itemId}/like`;
+        const method = liked ? 'DELETE' : 'POST';
+
+        fetch(url, {
+        method: method,
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        })
+        .then(res => res.json())
+        .then(data => {
+        liked = data.liked;
+        likeButton.textContent = liked ? '❤️ いいね済み' : '🤍 いいね';
+        });
+    });
+    });
+</script>
+
 @endsection
