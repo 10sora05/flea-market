@@ -11,7 +11,7 @@
   <div class="index__header-li"><p>マイリスト</p></div>
 </div>
 
-<div class="index__items">
+<div class="index__items" id="itemList">
   @foreach ($items->chunk(4) as $chunk)
     <div class="item__content">
       @foreach ($chunk as $item)

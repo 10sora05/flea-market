@@ -11,8 +11,8 @@ class Condition extends Model
 
     protected $fillable = ['name'];
 
-    public function items()
+    public function item()
     {
-        return $this->belongsToMany(Item::class, 'condition_item')->withTimestamps();
+        return $this->hasOne(Item::class);
     }
 }

@@ -30,36 +30,41 @@
         </diV>
         <h4 class="item-text-title">商品名</h4>
         <p class="item-text">{{ $item->description }}</p>
-        <h4 class="item-text-title">商品の情報</h4>
+        <h4 class="item-text-title">商品説明</h4>
+            <p class="item-text">カラー：</p>
+            <p class="item-text">新品</p>
+            <p class="item-text">購入後、即発送いたします。</p>
         <h5 class="item-text">カテゴリー</h5>
         <h5 class="item-text">商品の状態</h5>
         <p class="item-text">コメント({{ $item->comments->count() }})</p>
-        <div class="user">
-            @foreach($item->comments->sortByDesc('created_at') as $comment)
-            <span class="user-icon">　 </span>
-            <span class="user-name">{{ $comment->user->name }}</span>
-        </div>
-
-        <div class="comment">
-            <div class="user-text">{{ $comment->content }}</div>
-        </div>
-            @endforeach
-
-        <h5 class="item-text">商品へのコメント</h5>
-
-            @if(Auth::check())
-        <form action="{{ route('comment.store', $item->id) }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <input type="text" name="content" class="form-comment" placeholder="" maxlength="255">
-                @error('content')<p class="error">{{ $message }}</p>@enderror
+        <div class="user-comment-box">
+            <div class="user">
+                @foreach($item->comments->sortByDesc('created_at') as $comment)
+                <span class="user-icon">　 </span>
+                <span class="user-name">{{ $comment->user->name }}</span>
+            <div class="user-comment">{{ $comment->content }}</div>
+                @endforeach
             </div>
-            <button type="submit" class="comment-btn">送信</button>
-        </form>
-        @else
+        </div>
 
-        @endif
+        <div class="comment-text-box">
+            <h5 class="item-text">商品へのコメント</h5>
 
+            <form action="{{ route('comment.store', $item->id) }}" method="POST" id="comment-form">
+                @csrf
+                <div class="form-group">
+                    <input type="text" name="content" class="form-comment" placeholder="" maxlength="255">
+                    @error('content')<p class="error">{{ $message }}</p>@enderror
+                </div>
+
+                {{-- ✅ ログイン判定で送信方法を分岐 --}}
+                @if(Auth::check())
+                    <button type="submit" class="comment-btn">送信</button>
+                @else
+                    <button type="button" class="comment-btn" onclick="alert('コメントするにはログインが必要です。')">送信</button>
+                @endif
+            </form>
+        </div>
     </div>
   </div>
 

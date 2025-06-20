@@ -29,9 +29,6 @@
           @auth
             <!-- ログイン中 -->
             <li class="header__nav-li">
-              <span class="header__nav-a">{{ Auth::user()->name }} さん</span>
-            </li>
-            <li class="header__nav-li">
               <a class="header__nav-a" href="{{ route('mypage') }}">マイページ</a>
             </li>
             <li class="header__nav-li">

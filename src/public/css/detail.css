@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 50px;
+    margin: 10px auto;
+    width: 70%;
 }
 
 .item-img {
@@ -25,7 +26,7 @@
 }
 
 .item-price {
-    font-size: 25px;
+    font-size: 30px;
     font-weight: normal;
     margin-bottom: 20px;
 }
@@ -36,55 +37,71 @@
 
 .item-text-title {
     font-size: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .item-text {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .purchase {
     width: 100%;
-    padding: 20px;
+    padding: 20px 0;
 }
 
-.purchase-btn,
-.comment-btn {
+.purchase-btn {
     font-size: 16px;
     text-decoration: none;
-    padding: 10px 150px;
+    padding: 1% 40%;
     margin: 20px 0;
     background-color: #ff5454;
     color: #fff;
     border: none;
 }
 
-.frex {
-    display: flex;
-    flex-direction: row;
+.user {
+    width: 100%;
+    margin: 20px 0;
 }
 
 .user-icon {
     background-color: #d9d9d9;
-    width: 30px;
-    height: 30px;
     border-radius: 50px;
+    padding: 0 2px;
+    font-size: 22px;
 }
 
 .user-name {
-    padding: 5px;
+    width: 30%;
+    padding: 0 5px;
 }
 
-.user-text {
+.user-comment {
     background-color: #d9d9d9;
-    width: 80%;
-    padding: 10px;
+    width: 96%;
+    padding: 2%;
+    margin: 20px 0;
+    display: block;
+}
+
+.user-comment-box,
+.comment-text-box {
+    width: 100%;
     margin-bottom: 20px;
 }
 
 .form-comment {
-    width: 80%;
+    width: 98%;
     height: 300px;
 }
 
-.comment-btn {}
+.comment-btn {
+    font-size: 16px;
+    text-decoration: none;
+    width: 100%;
+    padding: 1%;
+    margin: 20px 0;
+    background-color: #ff5454;
+    color: #fff;
+    border: none;
+}

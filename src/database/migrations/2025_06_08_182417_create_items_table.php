@@ -21,6 +21,11 @@ class CreateItemsTable extends Migration
             $table->string('img_url')->nullable();
             $table->timestamps();
         });
+        
+        Schema::table('items', function (Blueprint $table) {
+        $table->unsignedBigInteger('condition_id')->nullable()->after('description');
+        $table->foreign('condition_id')->references('id')->on('conditions')->onDelete('set null');
+    });
     }
 
     /**

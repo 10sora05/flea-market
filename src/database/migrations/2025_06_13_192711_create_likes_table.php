@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConditionItemTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateConditionItemTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('condition_item', function (Blueprint $table) {
+   {
+        Schema::create('likes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
-            $table->foreignId('condition_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->unique(['user_id', 'item_id']);
         });
     }
 
@@ -28,6 +29,6 @@ class CreateConditionItemTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('condition_item');
+        Schema::dropIfExists('likes');
     }
 }
