@@ -34,8 +34,10 @@
             <p class="item-text">カラー：</p>
             <p class="item-text">新品</p>
             <p class="item-text">購入後、即発送いたします。</p>
-        <h5 class="item-text">カテゴリー</h5>
-        <h5 class="item-text">商品の状態</h5>
+        <h5 class="item-text-title">カテゴリー</h5>
+        <span class="item-text-date"> </span><br>
+        <h5 class="item-text-title">商品の状態</h5>
+        <span class="item-text-date">{{ $item->condition->name ?? '状態未設定' }}</span><br>
         <p class="item-text">コメント({{ $item->comments->count() }})</p>
         <div class="user-comment-box">
             <div class="user">

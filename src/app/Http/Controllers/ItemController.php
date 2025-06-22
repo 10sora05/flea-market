@@ -13,19 +13,18 @@ class ItemController extends Controller
             return view('index', compact('items'));
         }
 
-        public function search(Request $request)
-    {
-        $keyword = $request->get('keyword');
+    public function search(Request $request)
+        {
+            $keyword = $request->get('keyword');
 
-        $items = Item::where('name', 'like', '%' . $keyword . '%')->get();
+            $items = Item::where('name', 'like', '%' . $keyword . '%')->get();
 
-        return response()->json($items);
-    }
+            return response()->json($items);
+        }
 
     public function show($id)
         {
-            $item = Item::with('comments.user')->findOrFail($id);
-            $item = Item::findOrFail($id);
+            $item = Item::with(['comments.user', 'condition'])->findOrFail($id);
             return view('detail', compact('item'));
         }
 
