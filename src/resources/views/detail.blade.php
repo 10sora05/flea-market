@@ -14,15 +14,24 @@
         <p class="item-text">ブランド名</p>
         <h3 class="item-price">￥{{ number_format($item->price) }}<span class="price-tax">(税込)</span></h3>
 
-        <div class="like-section">
-            <button id="likeButton" class="like-btn">
-                @if(Auth::check() && $item->isLikedBy(Auth::user()))
-                    ❤️
-                @else
-                    🤍
-                @endif
-            </button>
-            <p>　{{ $item->likes->count() }} </p>
+        <div class="flex">
+            <div class="like-section">
+                <span class="icon-count">
+                    <button id="likeButton" class="like-btn">
+                        @if(Auth::check() && $item->isLikedBy(Auth::user()))
+                            ❤️
+                        @else
+                            🤍
+                        @endif
+                    </button>
+                </span>
+                <p>{{ $item->likes->count() }} </p>
+            </div>
+
+            <div class="comment-count">
+                <span class="icon-count">💬</span>
+                <p>{{ $item->comments->count() }}</p>
+            </div>
         </div>
 
         <div class="purchase">
@@ -34,11 +43,15 @@
             <p class="item-text">カラー：</p>
             <p class="item-text">新品</p>
             <p class="item-text">購入後、即発送いたします。</p>
-        <h5 class="item-text-title">カテゴリー</h5>
-        <span class="item-text-date"> </span><br>
-        <h5 class="item-text-title">商品の状態</h5>
-        <span class="item-text-date">{{ $item->condition->name ?? '状態未設定' }}</span><br>
-        <p class="item-text">コメント({{ $item->comments->count() }})</p>
+        <div class="flex">
+            <div class="item-category">カテゴリー</div>
+            <div class="item-text-date"> </div>
+        </div>
+        <div class="flex">
+            <div class="item-condition">商品の状態</div>
+            <div class="item-text-date">{{ $item->condition->name ?? '状態未設定' }}</div>
+        </div>
+            <p class="item-text">コメント({{ $item->comments->count() }})</p>
         <div class="user-comment-box">
             <div class="user">
                 @foreach($item->comments->sortByDesc('created_at') as $comment)

@@ -6,6 +6,9 @@ use App\Http\Controllers\LikeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SellController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +35,6 @@ Route::get('/items/{id}/purchase', [ItemController::class, 'purchase'])
 Route::post('/items/{item}/like', [LikeController::class, 'like'])->middleware('auth')->name('items.like');
 Route::delete('/items/{item}/unlike', [LikeController::class, 'unlike'])->middleware('auth')->name('items.unlike');
 
-// ダッシュボード（認証後）
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 
 Route::post('/login', [LoginController::class, 'login']);
@@ -50,12 +48,19 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth')->post('/items/{item}/comment', [CommentController::class, 'store'])->name('comment.store');
 
 Route::get('/mypage', function () {
-  return view('mypage');
-})->name('mypage');
+    return view('mypage');
+})->middleware('auth')->name('mypage');
 
-Route::get('/sell', function () {
-  return view('sell');
-})->name('sell');
+Route::middleware(['auth'])->group(function () {
+    // プロフィール編集ページ
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    
+    // プロフィール更新処理
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
+Route::get('/sell', [SellController::class, 'create'])->name('sell');
+Route::post('/sell', [SellController::class, 'store'])->name('items.store');
 
 Route::get('/detail', function () {
   return view('detail');

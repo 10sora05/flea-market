@@ -7,7 +7,6 @@
     @yield('css')
 </head>
 <body>
-
     <header class="login-header">
         <div class="header__logo">
             <a class="header__logo-a" href="{{ route('index') }}">
@@ -19,6 +18,5 @@
     <main>
         @yield('content')
     </main>
-
 </body>
 </html>

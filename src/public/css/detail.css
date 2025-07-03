@@ -35,15 +35,37 @@
     font-size: 18px;
 }
 
+.flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.icon-count {
+    font-size: 25px;
+}
+
+.like-section,
+.comment-count {
+    width: 50px;
+    text-align: center;
+}
+
 .item-text-title {
     font-size: 20px;
     width: 20%;
     margin: 20px 0;
 }
 
+.item-category,
+.item-condition {
+    font-size: 16px;
+    font-weight: bold;
+    width: 20%;
+    margin: 20px 0;
+}
+
 .item-text-date {
-    margin-left: 20px;
-    display: inline-block;
+    margin: 16px;
 }
 
 .item-text {
@@ -110,4 +132,8 @@
     background-color: #ff5454;
     color: #fff;
     border: none;
+}
+.error {
+    margin-bottom: 1rem;
+    color: red;
 }

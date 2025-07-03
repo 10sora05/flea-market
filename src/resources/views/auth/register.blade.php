@@ -15,7 +15,6 @@
             <label for="name">ユーザー名</label>
             <input id="name" type="text" name="name" value="{{ old('name') }}" autofocus>
             @error('name') <div class="error">{{ $message }}</div> @enderror
-
         </div>
 
         <div class="form-group">

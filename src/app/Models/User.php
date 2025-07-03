@@ -28,6 +28,21 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Item::class, 'favorites')->withTimestamps();
+    }
+
+        public function likedItems()
+    {
+        return $this->belongsToMany(Item::class, 'likes')->withTimestamps();
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
 
     /**
      * The attributes that should be hidden for serialization.
