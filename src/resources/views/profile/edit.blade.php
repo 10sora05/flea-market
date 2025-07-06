@@ -31,7 +31,7 @@
 
         <div class="user-information">
             <label for="post" class="user-title">郵便番号</label>
-            <input type="number" name="post" class="user-input" value="{{ old('post', $user->post ?? '') }}"/>
+            <input type="text" name="post" class="user-input" value="{{ old('post', $user->post ?? '') }}"/>
             @error('post') <div class="error">{{ $message }}</div> @enderror
         </div>
 

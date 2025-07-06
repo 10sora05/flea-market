@@ -41,22 +41,17 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
-
-Route::post('/register', [RegisterController::class, 'register']);
-
 Route::middleware('auth')->post('/items/{item}/comment', [CommentController::class, 'store'])->name('comment.store');
 
-Route::get('/mypage', function () {
-    return view('mypage');
-})->middleware('auth')->name('mypage');
-
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/profile/mypage', [ProfileController::class, 'mypage'])->name('profile.mypage');
+
     // プロフィール編集ページ
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     
     // プロフィール更新処理
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::get('/sell', [SellController::class, 'create'])->name('sell');

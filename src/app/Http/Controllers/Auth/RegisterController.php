@@ -27,6 +27,6 @@ class RegisterController extends Controller
         // 自動ログイン
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('profile.edit');
     }
 }

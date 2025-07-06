@@ -23,6 +23,6 @@ class FortifyServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        $this->app->singleton(CreatesNewUsers::class, CreateNewUser::class);
     }
 }
