@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'img',
+        'post',
+        'address',
+        'bldg',
     ];
 
     public function likes()

@@ -5,19 +5,19 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Contracts\RegisterViewResponse;
+use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Actions\Fortify\CreateNewUser;
 
 class FortifyServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        // Register the custom RegisterViewResponse binding
-        $this->app->singleton(RegisterViewResponse::class, function () {
-            return new class implements RegisterViewResponse {
-                public function toResponse($request)
-                {
-                    return view('auth.register');
-                }
-            };
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
+
+        Fortify::loginView(function () {
+            return view('auth.login');
         });
     }
 

@@ -1,22 +1,27 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
+<link rel="stylesheet" href="{{ asset('css/edit.css') }}">
 @endsection
 
 @section('content')
 
-<div class="mypage-content">
-    <h2 class="mypage-h2">プロフィール設定</h2>
+<div class="edit-content">
+    <h2 class="edit-h2">プロフィール設定</h2>
 
-    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="user-information">
-            @if(optional($user)->img)
+            @php
+                use Illuminate\Support\Facades\Storage;
+                $hasImage = !empty($user->img) && Storage::disk('public')->exists($user->img);
+            @endphp
+
+            @if($hasImage)
                 <img src="{{ asset('storage/' . $user->img) }}" alt="ユーザー画像" class="user-icon-img" />
             @else
-                <div class="user-icon-placeholder">No Image</div>
+                <img src="{{ asset('images/default-user.png') }}" alt="デフォルト画像" class="user-icon-img" />
             @endif
 
             <input type="file" accept="image/*" name="img" class="user-img" />

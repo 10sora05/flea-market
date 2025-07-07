@@ -92,16 +92,23 @@
     margin: 20px 0;
 }
 
-.user-icon {
-    background-color: #d9d9d9;
-    border-radius: 50px;
-    padding: 0 2px;
-    font-size: 22px;
+.user-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.user-icon-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: thick double #32a1ce;
 }
 
 .user-name {
-    width: 30%;
-    padding: 0 5px;
+    width: 50px;
+    padding-left: 8px;
+    padding-top: 14px;
 }
 
 .user-comment {
@@ -133,6 +140,7 @@
     color: #fff;
     border: none;
 }
+
 .error {
     margin-bottom: 1rem;
     color: red;

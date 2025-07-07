@@ -64,3 +64,7 @@ Route::get('/detail', function () {
 Route::get('/purchase', function () {
   return view('purchase');
 })->name('purchase');
+
+Route::get('/mypage', function () {
+  return view('mypage');
+})->name('mypage');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,21 +15,17 @@ class ProfileController extends Controller
 
         return view('profile.edit', compact('user')); // ← Blade に渡す
     }
-    public function update(Request $request)
+    public function update(AddressRequest $request)
     {
-        $request->validate([
-            'img' => 'nullable|image|mimes:jpeg,png|max:2048',
-            'name' => 'required|string|max:255',
-            'post' => 'required|regex:/^\d{3}-\d{4}$/',
-            'address' => 'required|string|max:255',
-            'bldg' => 'nullable|string|max:255',
-        ]);
-
         $user = auth()->user();
 
         // 画像の保存
-        if ($request->hasFile('img')) {
-            $path = $request->file('img')->store('images', 'public'); // storage/app/public/images に保存
+            if ($request->hasFile('img')) {
+            if ($user->img && Storage::disk('public')->exists($user->img)) {
+                Storage::disk('public')->delete($user->img);
+            }
+
+            $path = $request->file('img')->store('images', 'public');
             $user->img = $path;
         }
 

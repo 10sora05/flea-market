@@ -29,7 +29,7 @@
           @auth
             <!-- ログイン中 -->
             <li class="header__nav-li">
-              <a class="header__nav-a" href="{{ route('mypage') }}">マイページ</a>
+              <a class="header__nav-a" href="{{ route('profile.mypage') }}">マイページ</a>
             </li>
             <li class="header__nav-li">
               <form method="POST" action="{{ route('logout') }}">

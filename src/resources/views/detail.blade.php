@@ -51,15 +51,27 @@
             <div class="item-condition">商品の状態</div>
             <div class="item-text-date">{{ $item->condition->name ?? '状態未設定' }}</div>
         </div>
+
             <p class="item-text">コメント({{ $item->comments->count() }})</p>
+
         <div class="user-comment-box">
-            <div class="user">
-                @foreach($item->comments->sortByDesc('created_at') as $comment)
-                <span class="user-icon">　 </span>
-                <span class="user-name">{{ $comment->user->name }}</span>
-            <div class="user-comment">{{ $comment->content }}</div>
-                @endforeach
-            </div>
+            @foreach($item->comments->sortByDesc('created_at') as $comment)
+                <div class="user">
+                    <div class="user-flex">
+                        @php
+                            $commentUser = $comment->user;
+                        @endphp
+
+                        @if($commentUser && $commentUser->img && Storage::disk('public')->exists($commentUser->img))
+                            <img src="{{ asset('storage/' . $commentUser->img) }}" alt="{{ $commentUser->name }}の画像" class="user-icon-img">
+                        @else
+                            <img src="{{ asset('images/default-user.png') }}" alt="デフォルト画像" class="user-icon-img">
+                        @endif
+                        <div class="user-name">{{ $commentUser->name }}</div>
+                    </div>
+                    <div class="user-comment">{{ $comment->content }}</div>
+                </div>
+            @endforeach
         </div>
 
         <div class="comment-text-box">
