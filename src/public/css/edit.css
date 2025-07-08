@@ -8,8 +8,18 @@
     text-align: center;
 }
 
+.user-img-flex {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10%;
+}
+
 .user-information {
     margin-bottom: 10%;
+}
+
+.user-img-box {
+    width: 30%;
 }
 
 .user-icon {
@@ -28,21 +38,46 @@
     border: thick double #32a1ce;
 }
 
+.custom-file-box {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-file-input {
+    display: none;
+}
+
+.custom-file-label {
+    display: inline-block;
+    padding: 15px 20px;
+    margin: 30px;
+    color: #ff5454;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    border: 2px solid #ff5454;
+    border-radius: 10px;
+}
+
+.custom-file-label:hover {
+    background-color: #fbdcdc;
+}
+
 .user-profile-default {
     width: 100px;
     height: 100px;
     background-color: #ccc;
     border-radius: 50%;
     display: flex;
-    /* 中央寄せ */
     align-items: center;
-    /* 縦中央寄せ */
     justify-content: center;
-    /* 横中央寄せ */
 }
 
 .user-title {
     font-weight: bold;
+    width: 100%;
 }
 
 .user-input {
