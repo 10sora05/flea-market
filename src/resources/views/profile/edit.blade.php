@@ -12,20 +12,25 @@
     <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
         @csrf
 
-        <div class="user-information">
-            @php
-                use Illuminate\Support\Facades\Storage;
-                $hasImage = !empty($user->img) && Storage::disk('public')->exists($user->img);
-            @endphp
+        <div class="user-img-flex">
+            <div class="user-img-box">
+                @php
+                    use Illuminate\Support\Facades\Storage;
+                    $hasImage = !empty($user->img) && Storage::disk('public')->exists($user->img);
+                @endphp
 
-            @if($hasImage)
-                <img src="{{ asset('storage/' . $user->img) }}" alt="ユーザー画像" class="user-icon-img" />
-            @else
-                <img src="{{ asset('images/default-user.png') }}" alt="デフォルト画像" class="user-icon-img" />
-            @endif
+                @if($hasImage)
+                    <img src="{{ asset('storage/' . $user->img) }}" alt="ユーザー画像" class="user-icon-img" />
+                @else
+                    <img src="{{ asset('images/default-user.png') }}" alt="デフォルト画像" class="user-icon-img" />
+                @endif
+            </div>
 
-            <input type="file" accept="image/*" name="img" class="user-img" />
-            @error('img') <div class="error">{{ $message }}</div> @enderror
+            <div class="custom-file-box">
+                <label for="image" class="custom-file-label">画像を選択する</label>
+                <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
+                @error('img') <div class="error">{{ $message }}</div> @enderror
+            </div>
         </div>
 
         <div class="user-information">

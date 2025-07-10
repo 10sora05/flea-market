@@ -36,4 +36,10 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         return view('purchase', compact('item'));
     }
+
+    public function store(Request $request)
+    {
+        $item = Item::create(['name' => $request->name]);
+        $item->categories()->sync($request->category_ids);
+    }
 }
