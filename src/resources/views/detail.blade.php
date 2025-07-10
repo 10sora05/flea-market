@@ -7,7 +7,11 @@
 @section('content')
   <div class="item-content">
     <div class="item-img">
-        <img src="{{ $item->img_url }}" alt="{{ $item->name }}" class="img-fluid">
+        <img
+            src="{{ $item->image_path ? asset('storage/' . $item->image_path) : $item->img_url }}"
+            alt="{{ $item->name }}"
+            class="img"
+        />
     </div>
     <div class="item-detail">
         <h2 class="item-name">{{ $item->name }}</h2>
@@ -45,7 +49,13 @@
             <p class="item-text">購入後、即発送いたします。</p>
         <div class="flex">
             <div class="item-category">カテゴリー</div>
-            <div class="item-text-date"> </div>
+            <div class="item-text-date">
+                <ul class="category-ul">
+                @foreach ($item->categories as $category)
+                    <li class="category-li">{{ $category->name }}</li>
+                @endforeach
+                </ul>
+            </div>
         </div>
         <div class="flex">
             <div class="item-condition">商品の状態</div>

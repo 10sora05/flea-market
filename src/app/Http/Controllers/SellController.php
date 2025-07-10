@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ExhibitionRequest;
 use App\Models\Item;
+use App\Models\Category;
 
 class SellController extends Controller
 {
@@ -17,21 +18,31 @@ class SellController extends Controller
 
     public function store(ExhibitionRequest $request)
     {
-        $data = $request->validated();
+        $categoryIds = Category::whereIn('slug', $request->categories)->pluck('id')->toArray();
 
-        // 画像保存
-        if ($request->hasFile('image')) {
-            $filename = uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
-            $data['image_path'] = $request->file('image')->storeAs('images', $filename, 'public');
+        if (empty($categoryIds)) {
+            return back()->withErrors(['categories' => '正しいカテゴリーを選択してください']);
         }
 
-        // カテゴリーは配列として保存などの処理が必要です（例: JSON化）
-        $data['categories'] = json_encode($request->categories);
+        // 画像アップロード処理
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        }
 
-        // 商品保存（仮）
-        Item::create($data);
+        // アイテム保存
+        $item = Item::create([
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'description' => $request->description,
+            'price' => $request->price,
+            'condition' => $request->condition,
+            'image_path' => $imagePath,
+            'user_id' => auth()->id(),
+        ]);
 
-        return redirect()->route('sell')->with('success', '商品を出品しました');
+        $item->categories()->attach($categoryIds);
 
+        return redirect()->route('sell')->with('success', '商品を出品しました！');
     }
 }

@@ -28,7 +28,11 @@ class ItemController extends Controller
     public function show($id)
     {
         $item = Item::with(['comments.user', 'condition'])->findOrFail($id);
+
+        $item = Item::with('categories')->findOrFail($id);
+        
         return view('detail', compact('item'));
+
     }
 
     public function purchase($id)
@@ -41,5 +45,6 @@ class ItemController extends Controller
     {
         $item = Item::create(['name' => $request->name]);
         $item->categories()->sync($request->category_ids);
+        
     }
 }

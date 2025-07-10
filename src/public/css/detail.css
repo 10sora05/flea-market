@@ -8,6 +8,12 @@
 
 .item-img {
     width: 50%;
+    text-align: center;
+    padding-top: 3%;
+}
+
+.img {
+    width: 90%;
 }
 
 .img-fluid {
@@ -38,6 +44,18 @@
 .flex {
     display: flex;
     flex-direction: row;
+}
+
+.category-ul {
+    display: flex;
+}
+
+.category-li {
+    list-style: none;
+    margin-right: 20px;
+    padding: 5px 15px;
+    border-radius: 40%;
+    background-color: #d9d9d9;
 }
 
 .icon-count {

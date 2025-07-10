@@ -13,7 +13,8 @@ class Item extends Model
         'name',
         'price',
         'description',
-        'img_url'
+        'img_url',
+        'image_path',
     ];
 
     public function condition()

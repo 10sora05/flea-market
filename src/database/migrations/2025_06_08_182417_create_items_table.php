@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->integer('price');
             $table->text('description');
             $table->string('img_url')->nullable();
+            $table->string('image_path')->nullable()->after('description');
             $table->timestamps();
         });
         
@@ -36,5 +37,9 @@ class CreateItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('items');
+        
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropColumn('image_path');
+        });
     }
 }

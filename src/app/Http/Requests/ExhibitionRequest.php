@@ -13,7 +13,7 @@ class ExhibitionRequest extends FormRequest
         return [
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'categories' => 'required|array',
-            'categories.*' => 'in:fashion,electronics,interior',
+            'categories.*' => 'in:fashion,electronics,interior,woman,men,cosmetics,book,game,sports,kitchen,handmade,accessories,toys,baby-kids',
             'condition' => 'required|in:良好,目立った傷や汚れなし,やや傷や汚れあり,状態が悪い',
             'name' => 'required|string|max:100',
             'brand' => 'nullable|string|max:100',

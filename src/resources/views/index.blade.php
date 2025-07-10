@@ -42,7 +42,11 @@
         <div class="item-card">
           <div class="index__item-img">
             <a href="{{ route('items.show', $item->id) }}">
-              <img src="{{ $item->img_url }}" alt="{{ $item->name }}" class="item-img">
+              <img
+                  src="{{ $item->image_path ? asset('storage/' . $item->image_path) : $item->img_url }}"
+                  alt="{{ $item->name }}"
+                  class="item-img"
+              />
             </a>
           </div>
           <div class="index__item-name">
