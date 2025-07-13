@@ -22,7 +22,7 @@
                 @if($hasImage)
                     <img src="{{ asset('storage/' . $user->img) }}" alt="ユーザー画像" class="user-icon-img" />
                 @else
-                    <img src="{{ asset('images/default-user.png') }}" alt="デフォルト画像" class="user-icon-img" />
+                    <img src="{{ asset('img/default-user.png') }}" alt="デフォルト画像" class="user-icon-img" />
                 @endif
             </div>
 

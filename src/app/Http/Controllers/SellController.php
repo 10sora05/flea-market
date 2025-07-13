@@ -12,8 +12,9 @@ use App\Models\Category;
 class SellController extends Controller
 {
     public function create()
-        {
-            return view('sell');
+    {
+        $conditions = \App\Models\Condition::all();
+        return view('sell', compact('conditions'));
     }
 
     public function store(ExhibitionRequest $request)
@@ -36,7 +37,7 @@ class SellController extends Controller
             'brand' => $request->brand,
             'description' => $request->description,
             'price' => $request->price,
-            'condition' => $request->condition,
+            'condition_id' => $request->condition_id,
             'image_path' => $imagePath,
             'user_id' => auth()->id(),
         ]);

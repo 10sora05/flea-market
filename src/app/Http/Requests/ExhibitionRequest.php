@@ -14,9 +14,10 @@ class ExhibitionRequest extends FormRequest
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'categories' => 'required|array',
             'categories.*' => 'in:fashion,electronics,interior,woman,men,cosmetics,book,game,sports,kitchen,handmade,accessories,toys,baby-kids',
-            'condition' => 'required|in:良好,目立った傷や汚れなし,やや傷や汚れあり,状態が悪い',
+            'condition_id' => 'required|exists:conditions,id',
             'name' => 'required|string|max:100',
             'brand' => 'nullable|string|max:100',
+            //'brand' => 'required|string|max:100',
             'description' => 'required|string|max:1000',
             'price' => 'required|integer|min:1|max:1000000',
         ];
@@ -27,8 +28,9 @@ class ExhibitionRequest extends FormRequest
         return [
             'image.required' => '商品画像を選択してください。',
             'categories.required' => 'カテゴリーを選択してください。',
-            'condition.required' => '商品の状態を選択してください。',
+            'condition_id.required' => '商品の状態を選択してください。',
             'name.required' => '商品名を入力してください。',
+            'brand.required' => 'ブランドを入力してください。',
             'description.required' => '商品の説明を入力してください。',
             'price.required' => '販売価格を入力してください。',
         ];

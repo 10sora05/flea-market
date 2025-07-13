@@ -12,22 +12,24 @@ class CreateItemsTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('items', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->integer('price');
-            $table->text('description');
-            $table->string('img_url')->nullable();
-            $table->string('image_path')->nullable()->after('description');
-            $table->timestamps();
-        });
-        
-        Schema::table('items', function (Blueprint $table) {
-        $table->unsignedBigInteger('condition_id')->nullable()->after('description');
-        $table->foreign('condition_id')->references('id')->on('conditions')->onDelete('set null');
-    });
-    }
+        {
+            Schema::create('items', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->integer('price');
+                $table->text('brand')->nullable();
+                $table->text('description');
+                $table->string('img_url')->nullable();
+                $table->string('image_path')->nullable(); // <- afterは不要
+                $table->unsignedBigInteger('condition_id')->nullable();
+                $table->timestamps();
+
+                $table->foreign('condition_id')
+                    ->references('id')
+                    ->on('conditions')
+                    ->onDelete('set null');
+            });
+        }
 
     /**
      * Reverse the migrations.
@@ -37,9 +39,5 @@ class CreateItemsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('items');
-        
-        Schema::table('items', function (Blueprint $table) {
-            $table->dropColumn('image_path');
-        });
     }
 }

@@ -20,14 +20,10 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         // 画像の保存
-            if ($request->hasFile('img')) {
-            if ($user->img && Storage::disk('public')->exists($user->img)) {
-                Storage::disk('public')->delete($user->img);
-            }
-
-            $path = $request->file('img')->store('images', 'public');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
             $user->img = $path;
-        }
+}
 
         // その他の更新
         $user->name = $request->name;

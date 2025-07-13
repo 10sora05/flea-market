@@ -12,7 +12,9 @@ class Item extends Model
     protected $fillable = [
         'name',
         'price',
+        'brand',
         'description',
+        'condition_id',
         'img_url',
         'image_path',
     ];
@@ -40,5 +42,19 @@ class Item extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function getImageUrlAttribute()
+    {
+        if (!empty($this->img_url)) {
+            return $this->img_url;
+        }
+
+        if (!empty($this->image_path) && \Storage::disk('public')->exists($this->image_path)) {
+            return asset('storage/' . $this->image_path);
+        }
+
+        return asset('img/no-item.png'); // デフォルト画像
+    }
+
 
 }

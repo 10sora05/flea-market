@@ -48,13 +48,15 @@
 
 .category-ul {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .category-li {
     list-style: none;
     margin-right: 20px;
-    padding: 5px 15px;
-    border-radius: 40%;
+    margin-bottom: 8px;
+    padding: 10px 15px;
+    border-radius: 50%;
     background-color: #d9d9d9;
 }
 

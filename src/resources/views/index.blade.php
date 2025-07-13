@@ -21,7 +21,7 @@
         <div class="item-card">
           <div class="index__item-img">
             <a href="{{ route('items.show', $item->id) }}">
-              <img src="{{ $item->img_url }}" alt="{{ $item->name }}" class="item-img">
+              <img src="{{ $item->image_url }}" alt="商品画像" class="item-img">
             </a>
           </div>
           <div class="index__item-name">

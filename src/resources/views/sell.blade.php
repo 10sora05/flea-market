@@ -8,16 +8,6 @@
 <div class="sell-container">
     <h2 class="sell-h2">商品の出品</h2>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <form action="{{ route('items.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -28,6 +18,9 @@
                 <label for="image" class="custom-file-label">画像を選択する</label>
                 <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
             </div>
+            @error('image')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
@@ -43,31 +36,49 @@
                     <label for="cat_{{ $value }}">{{ $label }}</label>
                 </div>
             @endforeach
+            @error('categories')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
-            <label for="condition" class="sell-label">商品の状態</label>
-            <select name="condition" class="form-control">
-                <option value="良好">良好</option>
-                <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
-                <option value="やや傷や汚れあり">やや傷や汚れあり</option>
-                <option value="状態が悪い">状態が悪い</option>
+            <label for="condition_id" class="sell-label">商品の状態</label>
+            <select name="condition_id" class="form-control">
+                <option value="">選択してください</option> <!-- ← これを追加 -->
+                @foreach ($conditions as $condition)
+                    <option value="{{ $condition->id }}"
+                        {{ old('condition_id') == $condition->id ? 'selected' : '' }}>
+                        {{ $condition->name }}
+                    </option>
+                @endforeach
             </select>
+            @error('condition_id')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="name" class="sell-label">商品名</label>
             <input type="text" name="name" class="form-control" value="{{ old('name') }}">
+            @error('name')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="brand" class="sell-label">ブランド名</label>
             <input type="text" name="brand" class="form-control" value="{{ old('brand') }}">
+            @error('brand')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="description" class="sell-label">商品の説明</label>
             <textarea name="description" class="form-control" rows="4">{{ old('description') }}</textarea>
+            @error('description')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="form-group">
@@ -76,6 +87,9 @@
                 <span class="yen-symbol">￥</span>
                 <input type="number" name="price" class="form-control price-input" value="{{ old('price') }}" min="1" max="1000000">
             </div>
+            @error('price')
+                <div class="error">{{ $message }}</div>
+            @enderror
         </div>
 
         <button type="submit" class="btn-primary">出品する</button>
