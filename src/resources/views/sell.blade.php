@@ -92,7 +92,7 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn-primary">出品する</button>
+        <button type="submit" class="btn-list">出品する</button>
     </form>
 </div>
 @endsection

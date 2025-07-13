@@ -52,10 +52,11 @@ Route::middleware(['auth'])->group(function () {
     
     // プロフィール更新処理
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
-});
 
-Route::get('/sell', [SellController::class, 'create'])->name('sell');
-Route::post('/sell', [SellController::class, 'store'])->name('items.store');
+    Route::get('/sell', [SellController::class, 'create'])->name('sell');
+    Route::post('/items', [SellController::class, 'store'])->name('items.store');
+
+});
 
 Route::get('/detail', function () {
   return view('detail');

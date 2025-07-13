@@ -1,0 +1,61 @@
+.purchase-content {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.purchase-leftbox {
+    width: 60%;
+    padding: 10px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    border-bottom: solid;
+}
+
+.item-img {
+    max-height: 300px;
+}
+
+.item-detail {
+    margin: 50px 50px;
+    font-size: 24px;
+}
+
+.user-detail {
+    padding: 30px;
+    border-bottom: solid;
+}
+
+.purchase-rightbox {
+    width: 40%;
+    padding: 10px;
+    text-align: center;
+}
+
+.information-table {
+    width: 100%;
+    margin: 40px 0;
+}
+
+.information-tr {
+    text-align: left;
+    border: 1px solid #000;
+}
+
+.information-th {
+    padding: 20px;
+}
+
+.btn-order {
+    width: 80%;
+    padding: 0.75rem;
+    background-color: #ff5454;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
