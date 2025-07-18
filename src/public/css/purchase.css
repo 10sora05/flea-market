@@ -31,15 +31,38 @@
     border-bottom: solid;
 }
 
+.payment {
+    width: 200px;
+    background-color: #626669;
+    font-size: 16px;
+    color: #fff;
+    margin-left: 3%;
+}
+
+::selection {
+    background-color: #5498eb;
+    color: #fff;
+}
+
+.address-page-a {
+    text-decoration: none;
+    float: right;
+    font-weight: normal;
+    font-size: 16px;
+}
+
 .purchase-rightbox {
     width: 40%;
     padding: 10px;
+    margin-left: 5%;
     text-align: center;
 }
 
 .information-table {
     width: 100%;
     margin: 40px 0;
+    border-collapse: collapse;
+    font-size: 20px;
 }
 
 .information-tr {
@@ -48,7 +71,8 @@
 }
 
 .information-th {
-    padding: 20px;
+    padding: 50px 0;
+    text-align: center;
 }
 
 .btn-order {

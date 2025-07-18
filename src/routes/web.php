@@ -9,7 +9,6 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,36 +35,34 @@ Route::post('/items/{item}/like', [LikeController::class, 'like'])->middleware('
 Route::delete('/items/{item}/unlike', [LikeController::class, 'unlike'])->middleware('auth')->name('items.unlike');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-
 Route::post('/login', [LoginController::class, 'login']);
-
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->post('/items/{item}/comment', [CommentController::class, 'store'])->name('comment.store');
 
+// 認証が必要なルート
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/profile/mypage', [ProfileController::class, 'mypage'])->name('profile.mypage');
 
-    // プロフィール編集ページ
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    
-    // プロフィール更新処理
     Route::post('/profile/edit', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/profile/address', [ProfileController::class, 'address'])->name('profile.address');
+    Route::post('/profile/address', [ProfileController::class, 'addressUpdate'])->name('profile.address.update');
 
     Route::get('/sell', [SellController::class, 'create'])->name('sell');
     Route::post('/items', [SellController::class, 'store'])->name('items.store');
-
 });
 
 Route::get('/detail', function () {
-  return view('detail');
+    return view('detail');
 })->name('detail');
 
 Route::get('/purchase', function () {
-  return view('purchase');
+    return view('purchase');
 })->name('purchase');
 
 Route::get('/mypage', function () {
-  return view('mypage');
+    return view('mypage');
 })->name('mypage');
