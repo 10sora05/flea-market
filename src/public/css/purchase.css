@@ -6,23 +6,29 @@
 }
 
 .purchase-leftbox {
-    width: 60%;
-    padding: 10px;
+    width: 59%;
+    padding: 3%;
 }
 
 .flex {
     display: flex;
     flex-direction: row;
-    padding: 30px;
+    padding: 3%;
     border-bottom: solid;
+    width: 100%;
+}
+
+.purchase-img {
+    width: 45%;
 }
 
 .item-img {
-    max-height: 300px;
+    width: 100%;
 }
 
 .item-detail {
-    margin: 50px 50px;
+    width: 50%;
+    margin-left: 5%;
     font-size: 24px;
 }
 
@@ -52,15 +58,14 @@
 }
 
 .purchase-rightbox {
-    width: 40%;
-    padding: 10px;
+    width: 30%;
     margin-left: 5%;
     text-align: center;
 }
 
 .information-table {
     width: 100%;
-    margin: 40px 0;
+    margin: 20% 0;
     border-collapse: collapse;
     font-size: 20px;
 }

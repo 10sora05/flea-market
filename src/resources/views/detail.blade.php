@@ -39,14 +39,14 @@
         </div>
 
         <div class="purchase">
-            <a href="{{ route('items.purchase', $item->id) }}" class="purchase-btn">購入手続きへ</a>
+            <a href="{{ route('items.purchase.show', $item->id) }}" class="purchase-btn">購入手続きへ</a>
         </diV>
-        <h4 class="item-text-title">商品名</h4>
-        <p class="item-text">{{ $item->description }}</p>
         <h4 class="item-text-title">商品説明</h4>
+            <p class="item-text">{{ $item->description }}</p>
             <p class="item-text">カラー：</p>
             <p class="item-text">新品</p>
             <p class="item-text">購入後、即発送いたします。</p>
+        <h4 class="item-text-title">商品の状態</h4>
         <div class="flex">
             <div class="item-category">カテゴリー</div>
             <div class="item-text-date">

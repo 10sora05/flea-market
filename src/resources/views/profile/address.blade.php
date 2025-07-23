@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('profile.address.update') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="user-information">

@@ -51,9 +51,8 @@
         selectedPayment.textContent = paymentSelect.value;
       });
     </script>
-    <form action="#" method="POST">
+    <form action="{{ route('items.purchase', $item->id) }}" method="POST">
       @csrf
-            {{-- 購入確定処理は未実装なので仮のボタン --}}
       <button type="submit" class="btn-order">購入する</button>
     </form>
   </div>

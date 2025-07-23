@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Item;
 
 class ProfileController extends Controller
 {
@@ -60,6 +61,6 @@ class ProfileController extends Controller
         $user->save();
 
         // 更新後に `purchase` ページにリダイレクト
-        return redirect()->route('purchase')->with('status', '住所が更新されました');
+        return redirect()->route('items.purchase')->with('status', '住所が更新されました');
     }
 }

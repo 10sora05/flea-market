@@ -2,30 +2,38 @@
     background-color: #000;
     display: flex;
     flex-direction: row;
-    padding: 3%;
+    padding: 1%;
 }
 
 .header__logo {
-    width: 40%;
+    width: 25%;
+    margin-top: 0.5%;
+}
+
+.header__logo-img {
+    width: 92%;
 }
 
 .header__search {
-    width: 85%;
+    width: 37%;
+    margin-top: 0.5%;
 }
 
 .header__search-input {
-    width: 80%;
-    padding: 2%;
-    margin-left: 5%;
+    width: 94%;
+    padding: 1.2% 3%;
+    margin-left: 3%;
     border: none;
     border-radius: 4px;
     background-color: #fff;
     font-size: 16px;
+    font-weight: bold;
 }
 
 .header__nav {
-    width: 60%;
-    margin-top: 1%
+    width: 38%;
+    margin: 1% 0;
+    text-align: center;
 }
 
 .header__nav-ul {
@@ -36,7 +44,7 @@
 
 .header__nav-li {
     display: inline-block;
-    margin-left: 5%;
+    margin-left: 2%;
     width: 100%;
 }
 

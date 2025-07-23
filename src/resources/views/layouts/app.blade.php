@@ -16,7 +16,7 @@
     <div class="header__inner">
       <div class="header__logo">
         <a class="header__logo-a" href="{{ route('index') }}">
-          <img src="{{ asset('storage/images/logo.svg') }}" alt="ロゴ" />
+          <img src="{{ asset('storage/images/logo.svg') }}" alt="ロゴ" class="header__logo-img"/>
         </a>
       </div>
       <div class="header__search">
