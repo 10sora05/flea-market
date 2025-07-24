@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -43,8 +44,14 @@ class ItemController extends Controller
 
     public function store(Request $request)
     {
-        $item = Item::create(['name' => $request->name]);
-        $item->categories()->sync($request->category_ids);
-        
+        $item = new Item();
+        $item->name = $request->name;
+        $item->description = $request->description;
+        $item->price = $request->price;
+        $item->seller_id = Auth::id();
+        $item->is_sold = false;
+        $item->save();
+
+        return redirect()->route('index')->with('status', '商品を出品しました');
     }
 }
