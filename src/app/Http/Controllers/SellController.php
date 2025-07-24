@@ -39,11 +39,11 @@ class SellController extends Controller
             'price' => $request->price,
             'condition_id' => $request->condition_id,
             'image_path' => $imagePath,
-            'user_id' => auth()->id(),
+            'seller_id' => auth()->id(),
         ]);
 
         $item->categories()->attach($categoryIds);
 
-        return redirect()->route('sell')->with('success', '商品を出品しました！');
+        return redirect()->route('index')->with('success', '商品を出品しました！');
     }
 }

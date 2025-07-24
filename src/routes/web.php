@@ -24,6 +24,7 @@ use App\Http\Controllers\PurchaseController;
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show');
 Route::get('/api/search', [ItemController::class, 'search'])->name('items.search');
+Route::get('/mypage', [ProfileController::class, 'mypage'])->name('profile.mypage');
 
 // 購入画面表示（GET）
 Route::get('/purchase/{item}', [PurchaseController::class, 'showPurchasePage'])
@@ -63,6 +64,3 @@ Route::get('/detail', function () {
     return view('detail');
 })->name('detail');
 
-Route::get('/mypage', function () {
-    return view('mypage');
-})->name('mypage');

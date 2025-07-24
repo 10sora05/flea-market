@@ -53,7 +53,11 @@
     </script>
     <form action="{{ route('items.purchase', $item->id) }}" method="POST">
       @csrf
-      <button type="submit" class="btn-order">購入する</button>
+      @if ($item->is_sold)
+        <p style="color: red; font-weight: bold;">Sold</p>
+      @else
+        <button type="submit" class="btn-order">購入する</button>
+      @endif
     </form>
   </div>
 </div>

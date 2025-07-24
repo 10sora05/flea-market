@@ -17,6 +17,7 @@ class Item extends Model
         'condition_id',
         'img_url',
         'image_path',
+        'seller_id',
     ];
 
     public function condition()
@@ -56,5 +57,14 @@ class Item extends Model
         return asset('img/no-item.png'); // デフォルト画像
     }
 
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
+    }
+
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'buyer_id');
+    }
 
 }

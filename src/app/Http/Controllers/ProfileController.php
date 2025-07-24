@@ -63,4 +63,14 @@ class ProfileController extends Controller
         // 更新後に `purchase` ページにリダイレクト
         return redirect()->route('items.purchase')->with('status', '住所が更新されました');
     }
+
+    public function mypage()
+    {
+        $user = Auth::user();
+
+        $sellingItems = $user->itemsForSale;   // 出品商品（seller_id）
+        $purchasedItems = $user->purchasedItems; // 購入商品（buyer_id）
+
+        return view('profile.mypage', compact('user', 'sellingItems', 'purchasedItems'));
+    }
 }
