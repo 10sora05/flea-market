@@ -10,10 +10,17 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::all();
+        $userId = auth()->id();
+
+        $items = Item::when($userId, function ($query, $userId) {
+            return $query->where(function ($query) use ($userId) {
+                $query->where('seller_id', '!=', $userId)
+                    ->orWhereNull('seller_id'); // seller_id が null なら表示OK
+            });
+        })->get();
 
         $likedItems = auth()->user() ? auth()->user()->likedItems : collect();
-        
+
         return view('index', compact('items', 'likedItems'));
     }
 
