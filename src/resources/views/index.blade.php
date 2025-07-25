@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('body_class', 'page-index')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
@@ -14,6 +16,8 @@
   </div>
 </div>
 
+<div id="itemList"></div>
+
 <div id="recommend" class="tab-content">
   @foreach ($items->chunk(4) as $chunk)
     <div class="item__content">
@@ -23,6 +27,9 @@
             <a href="{{ route('items.show', $item->id) }}">
               <img src="{{ $item->image_url }}" alt="商品画像" class="item-img">
             </a>
+            @if ($item->is_sold)
+              <div class="sold-label">SOLD</div>
+            @endif
           </div>
           <div class="index__item-name">
             <a href="{{ route('items.show', $item->id) }}" class="item-name__a">

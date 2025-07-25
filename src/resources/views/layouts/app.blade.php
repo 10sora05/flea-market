@@ -11,7 +11,7 @@
   @yield('css')
 </head>
 
-<body>
+<body class="@yield('body_class')">
   <header class="header">
     <div class="header__inner">
       <div class="header__logo">
@@ -55,44 +55,139 @@
     </div>
   </header>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const searchInput = document.getElementById('searchInput');
-      if (!searchInput) return;
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchInput');
+  const itemList = document.getElementById('itemList');
+  const body = document.body;
 
-      searchInput.addEventListener('input', function () {
-        const keyword = this.value;
+  const isIndex = body.classList.contains('page-index');
+  const isMypage = body.classList.contains('page-mypage');
 
-        fetch(`/api/search?keyword=${encodeURIComponent(keyword)}`)
-          .then(response => response.json())
-          .then(data => {
-            const itemList = document.getElementById('itemList');
-            if (!itemList) return;
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  const sell = document.getElementById('sell');
+  const buy = document.getElementById('buy');
 
-            itemList.innerHTML = '';
+  // インデックスページの初期タブ設定
+  if (isIndex && tabButtons.length && tabContents.length) {
+    tabButtons[0].classList.add('active');
+    tabContents[0].style.display = 'block';
+    itemList.style.display = 'none';
 
-            if (data.length === 0) {
-              itemList.innerHTML = '<p>該当する商品がありません。</p>';
-              return;
-            }
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
 
-            data.forEach(item => {
-              const div = document.createElement('div');
-              div.className = 'item';
-              div.innerHTML = `
-                <h2>${item.name}</h2>
-                <p>${item.price}円</p>
-              `;
-              itemList.appendChild(div);
-            });
-          });
+        const target = this.getAttribute('data-target');
+        tabContents.forEach(content => {
+          content.style.display = (content.id === target) ? 'block' : 'none';
+        });
+
+        itemList.style.display = 'none';
+        if (searchInput) searchInput.value = '';
       });
     });
-  </script>
+  }
+  // 共通の検索処理
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      const keyword = this.value.trim();
+
+      if (!keyword) {
+        itemList.style.display = 'none';
+
+        if (isIndex) {
+          tabContents.forEach(tab => tab.style.display = 'none');
+          const activeTab = document.querySelector('.tab-button.active');
+          if (activeTab) {
+            const targetId = activeTab.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) targetEl.style.display = 'block';
+          }
+        } else if (isMypage && sell && buy) {
+          sell.style.display = 'block';
+          buy.style.display = 'none';
+        }
+
+        return;
+      }
+
+      itemList.innerHTML = '<p>検索中...</p>';
+      itemList.style.display = 'block';
+
+      fetch(`/api/search?keyword=${encodeURIComponent(keyword)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (!data.length) {
+            itemList.innerHTML = '<p>該当する商品がありません。</p>';
+            return;
+          }
+
+          const html = data.map(item => {
+            const img = item.image_url || item.img_url || '/images/noimage.png';
+            const name = item.name;
+            const link = `/items/${item.id}`;
+
+            if (isMypage) {
+              return `
+                <div class="item__content">
+                  <div class="item-card">
+                    <div class="mypage-item-img">
+                      <a href="${link}">
+                        <img src="${img}" alt="${name}" class="item-img" />
+                      </a>
+                    </div>
+                    <div class="mypage__item-name">
+                      <a href="${link}" class="item-name__a">
+                        <h2 class="update-form__item-name">${name}</h2>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }
+
+            // index用
+            return `
+              <div class="item-card">
+                <div class="index__item-img">
+                  <a href="${link}">
+                    <img src="${img}" alt="${name}" class="item-img" />
+                  </a>
+                </div>
+                <div class="index__item-name">
+                  <a href="${link}" class="item-name__a">
+                    <h2 class="update-form__item-name">${name}</h2>
+                  </a>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          itemList.innerHTML = `<div class="item__content">${html}</div>`;
+
+          // 検索時は他コンテンツを非表示
+          if (isIndex) {
+            tabContents.forEach(tab => tab.style.display = 'none');
+          } else if (isMypage && sell && buy) {
+            sell.style.display = 'none';
+            buy.style.display = 'none';
+          }
+        })
+        .catch(() => {
+          itemList.innerHTML = '<p>検索中にエラーが発生しました。</p>';
+        });
+    });
+  }
+});
+</script>
 
   <main>
     @yield('content')
   </main>
+  @yield('js')
 </body>
 
 </html>

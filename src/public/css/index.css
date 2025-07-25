@@ -9,6 +9,15 @@
     margin-left: 50px;
 }
 
+.tab-button {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tab-button.active {
+    color: #ff5454;
+}
+
 .item__content {
     display: flex;
     flex-wrap: wrap;
@@ -16,12 +25,29 @@
 }
 
 .item-card {
-    width: 22.75%;
+    width: 23%;
     margin: 1%;
 }
 
 .item-img {
     width: 100%;
+}
+
+.index__item-img {
+    position: relative;
+}
+
+.sold-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 5% 13%;
+    border-radius: 4px;
+    font-size: 14px;
+    z-index: 5;
 }
 
 .index__item-name {
@@ -31,21 +57,6 @@
 .item-name__a {
     font-size: 16px;
     text-decoration: none;
-}
-
-.tab-button {
-    background: none;
-    border: none;
-    font-size: 1.1rem;
-    padding: 10px;
-    cursor: pointer;
-    color: #666;
-}
-
-.tab-button.active {
-    color: #000;
-    font-weight: bold;
-    border-bottom: 2px solid #000;
 }
 
 .tab-content {

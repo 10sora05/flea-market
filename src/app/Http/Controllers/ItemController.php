@@ -15,11 +15,15 @@ class ItemController extends Controller
         $items = Item::when($userId, function ($query, $userId) {
             return $query->where(function ($query) use ($userId) {
                 $query->where('seller_id', '!=', $userId)
-                    ->orWhereNull('seller_id'); // seller_id が null なら表示OK
+                    ->orWhereNull('seller_id');
             });
-        })->get();
+        })
+        ->orderBy('id', 'asc')
+        ->get();
 
-        $likedItems = auth()->user() ? auth()->user()->likedItems : collect();
+        $likedItems = auth()->user()
+            ? auth()->user()->likedItems()->orderBy('pivot_created_at', 'desc')->get()
+            : collect();
 
         return view('index', compact('items', 'likedItems'));
     }
@@ -27,12 +31,9 @@ class ItemController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->get('keyword');
-
         $items = Item::where('name', 'like', '%' . $keyword . '%')->get();
-
         return response()->json($items);
     }
-
     public function show($id)
     {
         $item = Item::with(['comments.user', 'condition'])->findOrFail($id);

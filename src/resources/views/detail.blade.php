@@ -6,14 +6,17 @@
 
 @section('content')
   <div class="item-content">
-    <div class="item-img">
+    <div class="detail__item-img">
         <img
             src="{{ $item->image_path ? asset('storage/' . $item->image_path) : $item->img_url }}"
             alt="{{ $item->name }}"
-            class="img"
+            class="item-img"
         />
+        @if ($item->is_sold)
+            <div class="sold-label">SOLD</div>
+        @endif
     </div>
-    <div class="item-detail">
+    <div class="detail__item-text-box">
         <h2 class="item-name">{{ $item->name }}</h2>
         <p class="item-text">ブランド名</p>
         <h3 class="item-price">￥{{ number_format($item->price) }}<span class="price-tax">(税込)</span></h3>
@@ -85,7 +88,7 @@
         </div>
 
         <div class="comment-text-box">
-            <h5 class="item-text">商品へのコメント</h5>
+            <h5 class="comment-title">商品へのコメント</h5>
 
             <form action="{{ route('comment.store', $item->id) }}" method="POST" id="comment-form">
                 @csrf
