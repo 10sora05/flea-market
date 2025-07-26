@@ -20,7 +20,7 @@
 
 <div id="recommend" class="tab-content">
   @foreach ($items->chunk(4) as $chunk)
-    <div class="item__content">
+    <div class="index__item-content">
       @foreach ($chunk as $item)
         <div class="item-card">
           <div class="index__item-img">
@@ -44,7 +44,7 @@
 
 <div id="mylist" class="tab-content" style="display: none;">
   @foreach ($likedItems->chunk(4) as $chunk)
-    <div class="item__content">
+    <div class="index__item-content">
       @foreach ($chunk as $item)
         <div class="item-card">
           <div class="index__item-img">
@@ -55,6 +55,10 @@
                   class="item-img"
               />
             </a>
+            @if ($item->is_sold)
+              <div class="sold-label">SOLD</div>
+            @endif
+
           </div>
           <div class="index__item-name">
             <a href="{{ route('items.show', $item->id) }}" class="item-name__a">

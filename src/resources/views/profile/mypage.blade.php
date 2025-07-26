@@ -27,7 +27,7 @@
 
     <div id="itemList"></div>
 
-    <div id="sell" class="item__content">
+    <div id="sell" class="mypage__item-content">
         <!-- 出品した商品 -->
         @forelse ($sellingItems as $item)
             <div class="item-card">
@@ -50,7 +50,7 @@
         @endforelse
     </div>
 
-    <div id="buy" class="item__content">
+    <div id="buy" class="mypage__item-content">
         <!-- 購入した商品 -->
         @forelse ($purchasedItems as $item)
             <div class="item-card">
@@ -75,28 +75,29 @@
 </div>
 
 <script>
-function showTab(type) {
-    const sell = document.getElementById('sell');
-    const buy = document.getElementById('buy');
-    const sellBtn = document.getElementById('sellBtn');
-    const buyBtn = document.getElementById('buyBtn');
+    function showTab(type) {
+        const sell = document.getElementById('sell');
+        const buy = document.getElementById('buy');
+        const sellBtn = document.getElementById('sellBtn');
+        const buyBtn = document.getElementById('buyBtn');
 
-    if (type === 'sell') {
-        sell.style.display = 'block';
-        buy.style.display = 'none';
-        sellBtn.classList.add('active');
-        buyBtn.classList.remove('active');
-    } else {
-        sell.style.display = 'none';
-        buy.style.display = 'block';
+        sell.classList.remove('active');
+        buy.classList.remove('active');
         sellBtn.classList.remove('active');
-        buyBtn.classList.add('active');
-    }
-}
+        buyBtn.classList.remove('active');
 
-document.addEventListener('DOMContentLoaded', function () {
-    showTab('sell');
-});
+        if (type === 'sell') {
+            sell.classList.add('active');
+            sellBtn.classList.add('active');
+        } else {
+            buy.classList.add('active');
+            buyBtn.classList.add('active');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        showTab('sell');
+    });
 </script>
 
 @endsection

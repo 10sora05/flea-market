@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (isMypage) {
               return `
-                <div class="item__content">
                   <div class="item-card">
                     <div class="mypage-item-img">
                       <a href="${link}">
@@ -145,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       </a>
                     </div>
                   </div>
-                </div>
               `;
             }
 
@@ -166,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
           }).join('');
 
-          itemList.innerHTML = `<div class="item__content">${html}</div>`;
+          itemList.innerHTML = `<div class="search-results">${html}</div>`;
 
           // 検索時は他コンテンツを非表示
           if (isIndex) {

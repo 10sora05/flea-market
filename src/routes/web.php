@@ -58,9 +58,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/sell', [SellController::class, 'create'])->name('sell');
     Route::post('/items', [SellController::class, 'store'])->name('items.store');
 });
-
-// そのほかの固定ページ
-Route::get('/detail', function () {
-    return view('detail');
-})->name('detail');
-

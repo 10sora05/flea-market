@@ -42,7 +42,11 @@
         </div>
 
         <div class="purchase">
-            <a href="{{ route('items.purchase.show', $item->id) }}" class="purchase-btn">購入手続きへ</a>
+            @if ($item->is_sold)
+                <span class="purchase-btn sold-btn">SOLD</span>
+            @else
+                <a href="{{ route('items.purchase.show', $item->id) }}" class="purchase-btn">購入手続きへ</a>
+            @endif
         </diV>
         <h4 class="item-text-title">商品説明</h4>
             <p class="item-text">{{ $item->description }}</p>
