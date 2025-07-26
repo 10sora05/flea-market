@@ -179,6 +179,17 @@
     border: none;
 }
 
+.sold-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ccc;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+    cursor: default;
+}
+
 .error {
     margin-bottom: 1rem;
     color: red;
