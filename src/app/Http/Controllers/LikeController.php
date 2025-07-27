@@ -14,13 +14,19 @@ class LikeController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return response()->json(['liked' => true]);
+        return response()->json([
+            'liked' => true,
+            'likesCount' => $item->likes()->count(),
+        ]);
     }
 
     public function unlike(Item $item)
     {
         $item->likes()->where('user_id', Auth::id())->delete();
 
-        return response()->json(['liked' => false]);
+        return response()->json([
+            'liked' => false,
+            'likesCount' => $item->likes()->count(),
+        ]);
     }
 }
