@@ -15,9 +15,12 @@
             <label for="image" class="sell-label">商品画像</label><br>
 
             <div class="sell-img">
-                <label for="image" class="custom-file-label">画像を選択する</label>
+                <label for="image" class="custom-file-label">
+                    <span class="label-text">画像を選択する</span>
+                </label>
                 <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
             </div>
+
             @error('image')
                 <div class="error">{{ $message }}</div>
             @enderror
@@ -95,4 +98,18 @@
         <button type="submit" class="btn-list">出品する</button>
     </form>
 </div>
+@endsection
+
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.querySelector('.custom-file-input');
+        const fileLabel = document.querySelector('.custom-file-label');
+
+        fileInput.addEventListener('change', function () {
+            const fileName = this.files[0] ? this.files[0].name : '画像を選択する';
+            fileLabel.textContent = fileName;
+        });
+    });
+</script>
 @endsection

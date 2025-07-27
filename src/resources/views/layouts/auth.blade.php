@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ログインページ</title>
+    <link rel="stylesheet" href="{{ asset('css/reset.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('css')
 </head>

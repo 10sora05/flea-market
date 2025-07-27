@@ -24,15 +24,13 @@
         <div class="flex">
             <div class="like-section">
                 <span class="icon-count">
-                    <button id="likeButton" class="like-btn">
-                        @if(Auth::check() && $item->isLikedBy(Auth::user()))
-                            ❤️
-                        @else
-                            🤍
-                        @endif
+                    <button id="likeButton"
+                            class="like-btn"
+                            data-liked="{{ Auth::check() && $item->isLikedBy(Auth::user()) ? '1' : '0' }}">
+                        {{ Auth::check() && $item->isLikedBy(Auth::user()) ? '❤️' : '🤍' }}
                     </button>
                 </span>
-                <p>{{ $item->likes->count() }} </p>
+                <p id="likeCount">{{ $item->likes->count() }}</p>
             </div>
 
             <div class="comment-count">
@@ -96,10 +94,10 @@
 
             <form action="{{ route('comment.store', $item->id) }}" method="POST" id="comment-form">
                 @csrf
-                <div class="form-group">
-                    <input type="text" name="content" class="form-comment" placeholder="" maxlength="255">
-                    @error('content')<p class="error">{{ $message }}</p>@enderror
-                </div>
+                    <div class="form-group">
+                        <textarea name="content" class="form-comment" maxlength="255" placeholder="">{{ old('content') }}</textarea>
+                        @error('content')<p class="error">{{ $message }}</p>@enderror
+                    </div>
 
                 {{-- ✅ ログイン判定で送信方法を分岐 --}}
                 @if(Auth::check())
@@ -113,38 +111,41 @@
   </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const likeButton = document.getElementById('likeButton');
-        const itemId = {{ $item->id }};
-        const isLoggedIn = @json(Auth::check());
-        let liked = @json(Auth::check() ? $item->isLikedBy(Auth::user()) : false);
+document.addEventListener('DOMContentLoaded', () => {
+    const likeButton = document.getElementById('likeButton');
+    const likeCount = document.getElementById('likeCount');
+    const itemId = {{ $item->id }};
+    const isLoggedIn = @json(Auth::check());
+    let liked = @json(Auth::check() ? $item->isLikedBy(Auth::user()) : false);
 
-        if (!isLoggedIn) {
-            likeButton.addEventListener('click', () => {
-                alert("いいね機能を使うにはログインが必要です。");
-            });
-            return;
-        }
-
+    if (!isLoggedIn) {
         likeButton.addEventListener('click', () => {
-            const url = `/items/${itemId}/like`;
-            const method = liked ? 'DELETE' : 'POST';
-
-            fetch(url, {
-                method: method,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(res => res.json())
-            .then(data => {
-                liked = data.liked;
-                likeButton.textContent = liked ? '❤️ ' : '🤍 ';
-            });
+            alert("いいね機能を使うにはログインが必要です。");
         });
+        return;
+    }
+
+    likeButton.addEventListener('click', () => {
+        const url = liked ? `/items/${itemId}/unlike` : `/items/${itemId}/like`;
+        const method = liked ? 'DELETE' : 'POST';
+
+        fetch(url, {
+            method: method,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(data => {
+            liked = data.liked;
+            likeButton.textContent = liked ? '❤️ ' : '🤍 ';
+            likeCount.textContent = data.likesCount;
+        })
+        .catch(() => alert('通信エラーが発生しました'));
     });
+});
 </script>
 
 @endsection

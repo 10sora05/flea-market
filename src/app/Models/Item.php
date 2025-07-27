@@ -24,6 +24,7 @@ class Item extends Model
     {
         return $this->belongsTo(Condition::class);
     }
+
     public function likes()
     {
         return $this->hasMany(Like::class);
@@ -31,7 +32,11 @@ class Item extends Model
 
     public function isLikedBy($user)
     {
-        return $this->likes->contains('user_id', $user->id);
+        if (!$user) {
+            return false;
+        }
+
+        return $this->likes()->where('user_id', $user->id)->exists();
     }
 
     public function comments()
@@ -66,5 +71,4 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'buyer_id');
     }
-
 }

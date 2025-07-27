@@ -27,7 +27,9 @@
             </div>
 
             <div class="custom-file-box">
-                <label for="image" class="custom-file-label">画像を選択する</label>
+                <label for="image" class="custom-file-label">
+                    <span class="label-text">画像を選択する</span>
+                </label>
                 <input type="file" name="image" id="image" accept="image/*" class="custom-file-input">
                 @error('img') <div class="error">{{ $message }}</div> @enderror
             </div>
@@ -65,4 +67,20 @@
     </form>
 </div>
 
+@endsection
+
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.querySelector('.custom-file-input');
+        const labelText = document.querySelector('.custom-file-label .label-text');
+
+        if (fileInput && labelText) {
+            fileInput.addEventListener('change', function () {
+                const fileName = this.files[0] ? this.files[0].name : '画像を選択する';
+                labelText.textContent = fileName;
+            });
+        }
+    });
+</script>
 @endsection

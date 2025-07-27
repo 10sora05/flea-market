@@ -165,7 +165,12 @@
 
 .form-comment {
     width: 98%;
-    height: 200px;
+    height: 180px;
+    padding: 8px;
+    vertical-align: top;
+    line-height: 1.5;
+    resize: vertical;
+    border: 1px solid #000;
 }
 
 .comment-btn {

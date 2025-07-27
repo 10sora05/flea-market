@@ -29,12 +29,14 @@
     margin: 1%;
 }
 
-.item-img {
-    width: 100%;
-}
-
 .index__item-img {
     position: relative;
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.item-img {
+    width: 100%;
 }
 
 .sold-label {
@@ -57,6 +59,7 @@
 .item-name__a {
     font-size: 16px;
     text-decoration: none;
+    color: #000;
 }
 
 .tab-content {
