@@ -69,14 +69,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const sell = document.getElementById('sell');
   const buy = document.getElementById('buy');
 
-  // インデックスページの初期タブ設定
   if (isIndex && tabButtons.length && tabContents.length) {
     tabButtons[0].classList.add('active');
     tabContents[0].style.display = 'block';
     itemList.style.display = 'none';
 
     tabButtons.forEach(button => {
-      button.addEventListener('click', function() {
+      button.addEventListener('click', function () {
         tabButtons.forEach(btn => btn.classList.remove('active'));
         this.classList.add('active');
 
@@ -85,98 +84,45 @@ document.addEventListener('DOMContentLoaded', function() {
           content.style.display = (content.id === target) ? 'block' : 'none';
         });
 
+        // 検索キーワードによる再フィルタ
+        const keyword = searchInput.value.trim().toLowerCase();
+        tabContents.forEach(tab => {
+          const cards = tab.querySelectorAll('.item-card');
+          cards.forEach(card => {
+            const nameEl = card.querySelector('.update-form__item-name');
+            const name = nameEl ? nameEl.textContent.toLowerCase() : '';
+            card.style.display = keyword && !name.includes(keyword) ? 'none' : 'block';
+          });
+        });
+
         itemList.style.display = 'none';
-        if (searchInput) searchInput.value = '';
       });
     });
   }
-  // 共通の検索処理
+
   if (searchInput) {
     searchInput.addEventListener('input', function () {
-      const keyword = this.value.trim();
+      const keyword = this.value.trim().toLowerCase();
 
       if (!keyword) {
+        tabContents.forEach(tab => {
+          const cards = tab.querySelectorAll('.item-card');
+          cards.forEach(card => card.style.display = 'block');
+        });
         itemList.style.display = 'none';
-
-        if (isIndex) {
-          tabContents.forEach(tab => tab.style.display = 'none');
-          const activeTab = document.querySelector('.tab-button.active');
-          if (activeTab) {
-            const targetId = activeTab.getAttribute('data-target');
-            const targetEl = document.getElementById(targetId);
-            if (targetEl) targetEl.style.display = 'block';
-          }
-        } else if (isMypage && sell && buy) {
-          sell.style.display = 'block';
-          buy.style.display = 'none';
-        }
-
         return;
       }
 
-      itemList.innerHTML = '<p>検索中...</p>';
-      itemList.style.display = 'block';
+      itemList.style.display = 'none';
 
-      fetch(`/api/search?keyword=${encodeURIComponent(keyword)}`)
-        .then(res => res.json())
-        .then(data => {
-          if (!data.length) {
-            itemList.innerHTML = '<p>該当する商品がありません。</p>';
-            return;
-          }
-
-          const html = data.map(item => {
-            const img = item.image_url || item.img_url || '/images/noimage.png';
-            const name = item.name;
-            const link = `/items/${item.id}`;
-
-            if (isMypage) {
-              return `
-                  <div class="item-card">
-                    <div class="mypage-item-img">
-                      <a href="${link}">
-                        <img src="${img}" alt="${name}" class="item-img" />
-                      </a>
-                    </div>
-                    <div class="mypage__item-name">
-                      <a href="${link}" class="item-name__a">
-                        <h2 class="update-form__item-name">${name}</h2>
-                      </a>
-                    </div>
-                  </div>
-              `;
-            }
-
-            // index用
-            return `
-              <div class="item-card">
-                <div class="index__item-img">
-                  <a href="${link}">
-                    <img src="${img}" alt="${name}" class="item-img" />
-                  </a>
-                </div>
-                <div class="index__item-name">
-                  <a href="${link}" class="item-name__a">
-                    <h2 class="update-form__item-name">${name}</h2>
-                  </a>
-                </div>
-              </div>
-            `;
-          }).join('');
-
-          itemList.innerHTML = `<div class="search-results">${html}</div>`;
-
-          // 検索時は他コンテンツを非表示
-          if (isIndex) {
-            tabContents.forEach(tab => tab.style.display = 'none');
-          } else if (isMypage && sell && buy) {
-            sell.style.display = 'none';
-            buy.style.display = 'none';
-          }
-        })
-        .catch(() => {
-          itemList.innerHTML = '<p>検索中にエラーが発生しました。</p>';
+      tabContents.forEach(tab => {
+        const cards = tab.querySelectorAll('.item-card');
+        cards.forEach(card => {
+          const nameEl = card.querySelector('.update-form__item-name');
+          const name = nameEl ? nameEl.textContent.toLowerCase() : '';
+          card.style.display = name.includes(keyword) ? 'block' : 'none';
         });
+      });
     });
   }
 });

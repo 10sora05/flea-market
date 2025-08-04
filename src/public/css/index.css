@@ -26,6 +26,7 @@
 
 .item-card {
     width: 23%;
+    max-height: 350px;
     margin: 1%;
 }
 

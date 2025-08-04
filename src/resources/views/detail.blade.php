@@ -95,7 +95,7 @@
             <form action="{{ route('comment.store', $item->id) }}" method="POST" id="comment-form">
                 @csrf
                     <div class="form-group">
-                        <textarea name="content" class="form-comment" maxlength="255" placeholder="">{{ old('content') }}</textarea>
+                        <textarea name="content" class="form-comment" placeholder="">{{ old('content') }}</textarea>
                         @error('content')<p class="error">{{ $message }}</p>@enderror
                     </div>
 
