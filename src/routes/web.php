@@ -66,3 +66,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/sell', [SellController::class, 'create'])->name('sell');
     Route::post('/items', [SellController::class, 'store'])->name('items.store');
 });
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
