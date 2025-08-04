@@ -36,6 +36,14 @@ Route::post('/purchase/{item}', [PurchaseController::class, 'purchase'])
     ->middleware('auth')
     ->name('items.purchase');
 
+Route::get('/purchase/success/{item}', [PurchaseController::class, 'success'])
+->middleware('auth')
+->name('purchase.success');
+
+Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])
+    ->middleware('auth')
+    ->name('purchase.cancel');
+
 // いいね機能（ログイン必須）
 Route::post('/items/{item}/like', [LikeController::class, 'like'])->middleware('auth')->name('items.like');
 Route::delete('/items/{item}/unlike', [LikeController::class, 'unlike'])->middleware('auth')->name('items.unlike');

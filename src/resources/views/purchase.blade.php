@@ -26,12 +26,13 @@
     </div>
     <div class="user-detail">
       <h3>配送先
-      <span><a href="{{ route('profile.address') }}" class="address-page-a">変更する</a></span>      </h3>
+      <span><a href="{{ route('profile.address') }}" class="address-page-a">変更する</a></span></h3>
       <p class="user-info">{{ Auth::user()->post ?? '' }}</p>
       <p class="user-info">{{ Auth::user()->address ?? '住所が未登録です' }}</p>
       <p class="user-info">{{ Auth::user()->bldg ?? '' }}</p>
     </div>
   </div>
+
   <div class="purchase-rightbox">
     <table class="information-table">
       <tr class="information-tr">
@@ -43,16 +44,11 @@
         <th class="information-th"><span id="selected-payment">未選択</span></th>
       </tr>
     </table>
-    <script>
-      const paymentSelect = document.getElementById('payment-method');
-      const selectedPayment = document.getElementById('selected-payment');
 
-      paymentSelect.addEventListener('change', function() {
-        selectedPayment.textContent = paymentSelect.value;
-      });
-    </script>
     <form action="{{ route('items.purchase', $item->id) }}" method="POST">
       @csrf
+      <input type="hidden" name="payment" id="payment-method-hidden" value="コンビニ払い">
+      
       @if ($item->is_sold)
         <p style="color: red; font-weight: bold;">Sold</p>
       @else
@@ -61,4 +57,20 @@
     </form>
   </div>
 </div>
+
+<script>
+  const paymentSelect = document.getElementById('payment-method');
+  const selectedPayment = document.getElementById('selected-payment');
+  const hiddenPayment = document.getElementById('payment-method-hidden');
+
+  // 初期表示
+  selectedPayment.textContent = paymentSelect.value;
+  hiddenPayment.value = paymentSelect.value;
+
+  // 支払い方法を変更したときに表示とPOST用inputを更新
+  paymentSelect.addEventListener('change', function() {
+    selectedPayment.textContent = paymentSelect.value;
+    hiddenPayment.value = paymentSelect.value;
+  });
+</script>
 @endsection
