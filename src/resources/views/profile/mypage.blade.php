@@ -10,7 +10,16 @@
 <div class="edit-content">
     <div class="user-profile">
         <div class="user-icon">
-            <img src="{{ $user->img ? asset('storage/' . $user->img) : asset('images/default-user.png') }}" alt="ユーザー画像" class="user-icon-img">
+             @php
+                    use Illuminate\Support\Facades\Storage;
+                    $hasImage = !empty($user->img) && Storage::disk('public')->exists($user->img);
+                @endphp
+
+                @if($hasImage)
+                    <img src="{{ asset('storage/' . $user->img) }}" alt="ユーザー画像" class="user-icon-img" />
+                @else
+                    <img src="{{ asset('img/default-user.png') }}" alt="デフォルト画像" class="user-icon-img" />
+                @endif
         </div>
         <div class="user-profile__name">
             <h2 class="user-name">{{ $user->name }}</h2>

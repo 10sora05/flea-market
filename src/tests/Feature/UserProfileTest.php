@@ -17,13 +17,15 @@ class UserProfileTest extends TestCase
         // ユーザー作成
         $user = User::factory()->create([
             'name' => 'テストユーザー',
-            'profile_image' => 'test-profile.jpg',
+            'img' => 'test-profile.jpg',
         ]);
 
         // 出品した商品
         $listedItem = Item::factory()->create([
             'seller_id' => $user->id,
             'name' => '出品商品A',
+            'condition_id' => '2',
+
         ]);
 
         // 購入した商品

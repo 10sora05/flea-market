@@ -7,13 +7,15 @@
 
 .user-icon {
     width: 25%;
-    max-width: 250px;
-    max-height: 250px;
+    height: 180px;
+    max-width: 200px;
+    max-height: 200px;
     text-align: center;
 }
 
 .user-icon-img {
     width: 70%;
+    height: 75%;
     border-radius: 50%;
     margin: 10% 0;
     border: thick double #32a1ce;
