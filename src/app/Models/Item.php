@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -18,6 +19,7 @@ class Item extends Model
         'img_url',
         'image_path',
         'seller_id',
+        'buyer_id',
     ];
 
     public function condition()

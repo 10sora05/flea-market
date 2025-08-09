@@ -145,12 +145,12 @@ return [
     */
 
     'features' => [
-    Laravel\Fortify\Features::registration(),
-    Laravel\Fortify\Features::resetPasswords(),
-    Laravel\Fortify\Features::emailVerification(),
-    Laravel\Fortify\Features::updateProfileInformation(),
-    Laravel\Fortify\Features::updatePasswords(),
-    Laravel\Fortify\Features::twoFactorAuthentication(),
+        Laravel\Fortify\Features::registration(),
+        Laravel\Fortify\Features::resetPasswords(),
+        Laravel\Fortify\Features::emailVerification(),
+        Laravel\Fortify\Features::updateProfileInformation(),
+        Laravel\Fortify\Features::updatePasswords(),
+        Laravel\Fortify\Features::twoFactorAuthentication(),
     ],
 
 ];

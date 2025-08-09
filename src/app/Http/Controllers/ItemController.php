@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $userId = auth()->id();
+        $keyword = $request->input('keyword', '');
 
         $items = Item::when($userId, function ($query, $userId) {
             return $query->where(function ($query) use ($userId) {
@@ -18,14 +19,22 @@ class ItemController extends Controller
                     ->orWhereNull('seller_id');
             });
         })
-        ->orderBy('id', 'asc')
-        ->get();
+            ->when($keyword, function ($query, $keyword) {
+                return $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->orderBy('id', 'asc')
+            ->get();
 
         $likedItems = auth()->user()
-            ? auth()->user()->likedItems()->orderBy('pivot_created_at', 'desc')->get()
+            ? auth()->user()->likedItems()
+            ->when($keyword, function ($query, $keyword) {
+                return $query->where('name', 'like', '%' . $keyword . '%');
+            })
+            ->orderBy('pivot_created_at', 'desc')
+            ->get()
             : collect();
 
-        return view('index', compact('items', 'likedItems'));
+        return view('index', compact('items', 'likedItems', 'keyword'));
     }
 
     public function search(Request $request)
@@ -39,9 +48,8 @@ class ItemController extends Controller
         $item = Item::with(['comments.user', 'condition'])->findOrFail($id);
 
         $item = Item::with('categories')->findOrFail($id);
-        
-        return view('detail', compact('item'));
 
+        return view('detail', compact('item'));
     }
 
     public function purchase($id)

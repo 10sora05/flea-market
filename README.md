@@ -76,6 +76,9 @@ php artisan db:seed
 
 ・Composer: PHPのパッケージマネージャーとして、Laravelの依存関係を管理します。
 
+・mailtrap: メール認証機能
+
+・Stripe: 決済機能実装
 
 
 ## ER図

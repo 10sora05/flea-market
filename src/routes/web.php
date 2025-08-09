@@ -9,6 +9,9 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\PurchaseController;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +26,7 @@ use App\Http\Controllers\PurchaseController;
 
 Route::get('/', [ItemController::class, 'index'])->name('index');
 Route::get('/items/{id}', [ItemController::class, 'show'])->name('items.show');
-Route::get('/api/search', [ItemController::class, 'search'])->name('items.search');
-Route::get('/mypage', [ProfileController::class, 'mypage'])->name('profile.mypage');
+Route::get('/search', [ItemController::class, 'search'])->name('items.search');
 
 // 購入画面表示（GET）
 Route::get('/purchase/{item}', [PurchaseController::class, 'showPurchasePage'])
@@ -37,8 +39,8 @@ Route::post('/purchase/{item}', [PurchaseController::class, 'purchase'])
     ->name('items.purchase');
 
 Route::get('/purchase/success/{item}', [PurchaseController::class, 'success'])
-->middleware('auth')
-->name('purchase.success');
+    ->middleware('auth')
+    ->name('purchase.success');
 
 Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])
     ->middleware('auth')
@@ -69,8 +71,21 @@ Route::middleware('auth')->group(function () {
     Route::post('/items', [SellController::class, 'store'])->name('items.store');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
+// 認証メールの確認ページ（認証済み・未認証共にアクセス）
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); // メール認証案内ページのBladeを返す
+})->middleware('auth')->name('verification.notice');
+
+// 認証メール再送処理
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+// メール内リンククリック後の認証完了処理
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/dashboard'); // 認証完了後のリダイレクト先
+})->middleware(['auth', 'signed'])->name('verification.verify');
